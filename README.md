@@ -1,12 +1,13 @@
 maven-warsync-plugin
 ====================
 
-这是一个可以为一个war类型的maven工程，生成[FileSync](http://andrei.gmxhome.de/filesync/)这个eclipse插件的配置文件的maven插件。
+This is a maven plugin generating configuration files of [FileSync](http://andrei.gmxhome.de/filesync/) eclipse plugin for maven webapp project.
 
-使用方法
+
+Usage
 --------------------
 
-### 在一个packaging为war类型的工程的pom.xml中添加以下plugin配置
+### add the plugin config in pom.xml of a maven webapp project
 
 ```XML
 <build>
@@ -18,6 +19,7 @@ maven-warsync-plugin
 			<executions>
 				<execution>
 					<goals>
+						<!-- binded phase: generate-resources -->
 						<goal>eclipse</goal>
 					</goals>
 				</execution>
@@ -26,20 +28,22 @@ maven-warsync-plugin
 </build>
 ```
 
-### 可选配置参数
+### optional arguments
 
 * ${warsync.skip}
-如果为true，则跳过该插件目标
+will skip the gaol if is true.
 * ${warsync.libMode}
-可选"COPY"或者"REF"，默认为"COPY"，表示将所有的依赖复制到{webroot}/WEB-INF/lib下面。如果选择REF，则会在{webroot}/WEB-INF/lib下面生成一个warsync-classpath.jar包，里面的MANIFEST.MF通过Class-Path引用了所有依赖。
+"COPY" or "REF". Default is "COPY".
+> COPY: copy all dependencies into {webroot}/WEB-INF/lib
+> REF: create warsync-classpath.jar with MANIFEST.MF file that specified all dependencies in "Class-Path" entry.
 * ${warsync.dir}
-即同步到目标war目录，默认为${project.build.directory}/warsync/${project.build.finalName}.war
+Default is ${project.build.directory}/warsync/${project.build.finalName}.war
 
 
-例子
+A Sample
 --------------------
 
-对于如下一个多模块的maven工程
+For a maven project with multiple modules:
 ```
 sample/			--> sample.pom
     module1/		--> module1.jar
@@ -55,5 +59,36 @@ sample/			--> sample.pom
             main/
                 webapp/
         pom.xml
+    pom.xml
+```
+After execute "mvn eclipse:eclipse" or "mvn generate-resources": 
+```
+sample/
+    module1/
+        .setting/
+            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+        src/
+            main/
+        pom.xml
+    module2/
+        .setting/
+            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+        src/
+            main/
+        pom.xml
+    module3/
+        .setting/
+            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+        src/
+            main/
+                webapp/
+        pom.xml
+        target/
+            warsync/
+                module3.war/
+                    WEB-INF/
+                        lib/
+                            ...(all runtime dependencies' jar file)	--> only when ${warsync.libMode} == COPY
+                            warsync-classpath.jar			--> only when ${warsync.libMode} == REF
     pom.xml
 ```
