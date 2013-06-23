@@ -1,0 +1,39 @@
+<project xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" ">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.taobao.maven</groupId>
+	<artifactId>maven-warsync-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>WarSync Maven Plugin</name>
+	<description>Generate profile for eclipse fileSync plugin</description>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<maven.api.version>2.2.1</maven.api.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>${maven.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>${maven.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-artifact</artifactId>
+			<version>${maven.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-archiver</artifactId>
+			<version>2.5</version>
+		</dependency>
+	</dependencies>
+</project>
