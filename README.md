@@ -33,7 +33,7 @@ Usage
 * ${warsync.skip}
 will skip the gaol if is true.
 * ${warsync.libMode}
-"COPY" or "REF". Default is "COPY".
+> Default is "COPY".
 > COPY: copy all dependencies into {webroot}/WEB-INF/lib
 > REF: create warsync-classpath.jar with MANIFEST.MF file that specified all dependencies in "Class-Path" entry.
 * ${warsync.dir}
