@@ -7,7 +7,7 @@ This is a maven plugin generating configuration files of [FileSync](http://andre
 Usage
 --------------------
 
-### add the plugin config in pom.xml of a maven webapp project
+### add the plugin config to the pom.xml of a maven webapp project
 
 ```XML
 <build>
