@@ -33,9 +33,9 @@ Usage
 * ${warsync.skip}
 will skip the gaol if is true.
 * ${warsync.libMode}
-> Default is "COPY".
-> COPY: copy all dependencies into {webroot}/WEB-INF/lib
-> REF: create warsync-classpath.jar with MANIFEST.MF file that specified all dependencies in "Class-Path" entry.
+ Default is "COPY".
+ COPY: copy all dependencies into {webroot}/WEB-INF/lib
+ REF: create warsync-classpath.jar with MANIFEST.MF file that specified all dependencies in "Class-Path" entry.
 * ${warsync.dir}
 Default is ${project.build.directory}/warsync/${project.build.finalName}.war
 
@@ -66,19 +66,19 @@ After execute "mvn eclipse:eclipse" or "mvn generate-resources":
 sample/
     module1/
         .setting/
-            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+            de.loskutov.FileSync.prefs		--> will be recognized by FileSync eclipse plugin
         src/
             main/
         pom.xml
     module2/
         .setting/
-            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+            de.loskutov.FileSync.prefs		--> will be recognized by FileSync eclipse plugin
         src/
             main/
         pom.xml
     module3/
         .setting/
-            de.loskutov.FileSync.prefs		--> would be recognized by FileSync eclipse plugin
+            de.loskutov.FileSync.prefs		--> will be recognized by FileSync eclipse plugin
         src/
             main/
                 webapp/
