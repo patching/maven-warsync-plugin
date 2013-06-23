@@ -46,7 +46,7 @@ public class WarSyncMojo extends AbstractMojo {
     private boolean                   skip;
 
     /**
-     * skip the goal
+     * COPY or REF
      * 
      * @parameter default-value="COPY" expression="${warsync.libMode}"
      */
