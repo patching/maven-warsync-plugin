@@ -13,7 +13,7 @@ Usage
 <build>
   <plugins>			
 		<plugin>
-			<groupId>com.taobao.maven</groupId>
+			<groupId>com.github.patching</groupId>
 			<artifactId>maven-warsync-plugin</artifactId>
 			<version>${warsync.version}</version>
 			<executions>
