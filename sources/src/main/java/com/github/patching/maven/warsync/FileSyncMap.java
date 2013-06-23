@@ -1,4 +1,4 @@
-package com.taobao.maven.warsync;
+package com.github.patching.maven.warsync;
 
 /**
  * @author jinggang.huangjg 2013-6-22 обнГ12:33:57

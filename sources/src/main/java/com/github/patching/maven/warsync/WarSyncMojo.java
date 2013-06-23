@@ -1,4 +1,4 @@
-package com.taobao.maven.warsync;
+package com.github.patching.maven.warsync;
 
 import java.io.File;
 import java.io.FileInputStream;
