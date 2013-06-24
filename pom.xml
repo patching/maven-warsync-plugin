@@ -1,14 +1,36 @@
-<project xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation=" ">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.patching</groupId>
 	<artifactId>maven-warsync-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>WarSync Maven Plugin</name>
-	<description>Generate profile for eclipse fileSync plugin</description>
-	<url>http://maven.apache.org</url>
+	<description>Generate configuration for fileSync eclipse plugin</description>
+	<url>https://github.com/patching/maven-warsync-plugin</url>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git@github.com:patching/maven-warsync-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:patching/maven-warsync-plugin.git</developerConnection>
+		<url>git@github.com:patching/maven-warsync-plugin.git</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>pathcing</id>
+			<name>Patching</name>
+			<email>hjinggang@gmail.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<maven.api.version>2.2.1</maven.api.version>
