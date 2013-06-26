@@ -1,7 +1,7 @@
 package com.github.patching.maven.warsync;
 
 /**
- * @author jinggang.huangjg 2013-6-22 обнГ12:33:57
+ * @author jinggang.huangjg 2013-6-22 О©╫О©╫О©╫О©╫12:33:57
  */
 public class FileSyncMap {
 
