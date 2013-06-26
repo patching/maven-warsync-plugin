@@ -28,18 +28,6 @@ Usage
 </build>
 ```
 
-### optional arguments
-
-* ${warsync.skip}
-will skip the gaol if is true.
-* ${warsync.libMode}
- Default is "COPY".
- COPY: copy all dependencies into {webroot}/WEB-INF/lib
- REF: create warsync-classpath.jar with MANIFEST.MF file that specified all dependencies in "Class-Path" entry.
-* ${warsync.dir}
-Default is ${project.build.directory}/warsync/${project.build.finalName}.war
-
-
 A Sample
 --------------------
 
@@ -61,7 +49,7 @@ sample/			--> sample.pom
         pom.xml
     pom.xml
 ```
-After execute "mvn eclipse:eclipse" or "mvn generate-resources": 
+After run `mvn eclipse:eclipse`:
 ```
 sample/
     module1/
@@ -88,7 +76,7 @@ sample/
                 module3.war/
                     WEB-INF/
                         lib/
-                            ...(all runtime dependencies' jar file)	--> only when ${warsync.libMode} == COPY
-                            warsync-classpath.jar			--> only when ${warsync.libMode} == REF
+                            ...(all runtime dependencies' jar files)	--> only when ${warsync.libMode} == copy
+                            warsync-classpath.jar						--> only when ${warsync.libMode} == ref
     pom.xml
 ```
