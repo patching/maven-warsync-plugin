@@ -115,8 +115,8 @@ public class WarSyncMojo extends AbstractMojo {
      * run the goal if only current build contains a goal with <strong>eclipse:eclipse</strong><br />
      * default is <code>true</code>.
      */
-    @Parameter(defaultValue = "true", property = "warsync.runOnlyWithEclipseGoal", required = true)
-    private boolean                   runOnlyWithEclipseGoal;
+    @Parameter(defaultValue = "true", property = "warsync.onlyRunWithEclipseGoal", required = true)
+    private boolean                   onlyRunWithEclipseGoal;
 
     /**
      * TODO:
@@ -135,9 +135,9 @@ public class WarSyncMojo extends AbstractMojo {
             getLog().info("[WarSync] WarSync is skiped. See ${warsync.skip} parameter.");
             return;
         }
-        if (runOnlyWithEclipseGoal && !session.getGoals().contains("eclipse:eclipse")) {
+        if (onlyRunWithEclipseGoal && !session.getGoals().contains("eclipse:eclipse")) {
             getLog().info(
-                    "[WarSync] WarSync will be skiped for no 'eclipse:eclipse' goal found in current build.\n\tSet ${warsync.runOnlyWithEclipseGoal} to false to disable the feature if you want to force to run.");
+                    "[WarSync] WarSync will be skiped for no 'eclipse:eclipse' goal found in current build.\n\tSet ${warsync.onlyRunWithEclipseGoal} to false to disable the feature if you want to force to run.");
             return;
         }
         if (!"war".equals(project.getPackaging())) {
