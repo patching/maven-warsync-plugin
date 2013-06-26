@@ -49,7 +49,7 @@ sample/			--> sample.pom
         pom.xml
     pom.xml
 ```
-After run "mvn eclipse:eclipse": 
+After run `mvn eclipse:eclipse`:
 ```
 sample/
     module1/
