@@ -3,6 +3,9 @@ maven-warsync-plugin
 
 This is a maven plugin generating configuration files of [FileSync](http://andrei.gmxhome.de/filesync/) eclipse plugin for maven webapp project.
 
+The maven plugin will create a war directory (with all runtime jar files needed) under the project's build directory during `generate-resources` maven phase, and create profiles of the project (including referenced projects) to tell FileSync to synchronize class files and other resources (with maven filter feature) to the war directory.
+
+**Never** `mvn install`
 
 Usage
 --------------------
