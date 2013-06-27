@@ -22,7 +22,7 @@ Usage
 			<executions>
 				<execution>
 					<goals>
-						<!-- binded phase: generate-resources -->
+						<!-- bind phase: generate-resources -->
 						<goal>eclipse</goal>
 					</goals>
 				</execution>
