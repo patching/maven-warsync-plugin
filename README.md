@@ -7,6 +7,11 @@ The maven plugin will create a war directory (with all runtime jar files needed)
 
 **Never** `mvn install`
 
+Latest Version
+--------------------
+
+`1.0`
+
 Usage
 --------------------
 
