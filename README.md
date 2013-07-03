@@ -10,7 +10,7 @@ The maven plugin will create a war directory (with all runtime jar files needed)
 Latest Version
 --------------------
 
-`1.0`
+`1.0.1`
 
 Usage
 --------------------
