@@ -47,11 +47,11 @@ import org.codehaus.plexus.util.StringUtils;
 @Mojo(name = "eclipse", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class WarSyncMojo extends AbstractMojo {
 
-    public static final String        FILE_SYNC_CONFIG_FILE = ".settings/de.loskutov.FileSync.prefs";
+    public static final String          FILE_SYNC_CONFIG_FILE     = ".settings/de.loskutov.FileSync.prefs";
 
-    public static final String        LIB_MODE_COPY         = "copy";
-    public static final String        LIB_MODE_REF          = "ref";
-    private static final List<String> SCOPES                = new ArrayList<String>();
+    public static final String          LIB_MODE_COPY             = "copy";
+    public static final String          LIB_MODE_REF              = "ref";
+    private static final List<String>   SCOPES                    = new ArrayList<String>();
 
     static {
         SCOPES.add(Artifact.SCOPE_COMPILE);
@@ -59,31 +59,31 @@ public class WarSyncMojo extends AbstractMojo {
     }
 
     @Component
-    private MavenSession              session;
+    private MavenSession                session;
 
     @Component
-    private MavenProject              project;
+    private MavenProject                project;
 
     @Component
-    private ArtifactFactory           artifactFactory;
+    private ArtifactFactory             artifactFactory;
 
     @Component
-    private ArtifactCollector         artifactCollector;
+    private ArtifactCollector           artifactCollector;
 
     @Component
-    protected ArtifactResolver        artifactResolver;
+    protected ArtifactResolver          artifactResolver;
 
     @Component(hint = "maven")
-    private ArtifactMetadataSource    artifactMetadataSource;
+    private ArtifactMetadataSource      artifactMetadataSource;
 
     @Parameter(property = "reactorProjects", defaultValue = "${reactorProjects}", readonly = true, required = true)
-    private List<MavenProject>        reactorProjects;
+    private List<MavenProject>          reactorProjects;
 
     /**
      * skip the goal, default is <code>false</code>
      */
     @Parameter(defaultValue = "false", property = "warsync.skip")
-    private boolean                   skip;
+    private boolean                     skip;
 
     /**
      * <strong>copy</strong>: copy the lib jars into <code>warRoot/WEB-INF/lib</code> <br />
@@ -92,43 +92,45 @@ public class WarSyncMojo extends AbstractMojo {
      * default is <strong>copy</strong>
      */
     @Parameter(defaultValue = "copy", property = "warsync.libMode")
-    private String                    libMode;
+    private String                      libMode;
 
     @Parameter(defaultValue = "${project.projectReferences}", readonly = true, required = true)
-    private Map<String, MavenProject> projectReferences;
+    private Map<String, MavenProject>   projectReferences;
 
     /**
      * target war directory. <br />
      * default is <strong>${project.build.directory}/warsync/${project.build.finalName}.war</strong>
      */
     @Parameter(defaultValue = "${project.build.directory}/warsync/${project.build.finalName}.war", property = "warsync.dir", required = true)
-    private File                      warDir;
+    private File                        warDir;
 
     /**
      * webapp root source directory. <br />
      * default is <strong>${basedir}/src/main/webapp</strong>
      */
     @Parameter(defaultValue = "${basedir}/src/main/webapp", property = "warsync.webRootSrc", required = true)
-    private File                      warSrcDir;
+    private File                        warSrcDir;
 
     /**
      * run the goal if only current build contains a goal with <strong>eclipse:eclipse</strong><br />
      * default is <code>true</code>.
      */
     @Parameter(defaultValue = "true", property = "warsync.onlyRunWithEclipseGoal", required = true)
-    private boolean                   onlyRunWithEclipseGoal;
+    private boolean                     onlyRunWithEclipseGoal;
 
     /**
      * TODO:
      */
     @Parameter
-    private Map<String, String>       projectFilters        = new HashMap<String, String>();
+    private Map<String, String>         projectFilters            = new HashMap<String, String>();
 
     /**
      * resolved artifacts
      */
     @Parameter(defaultValue = "${project.artifacts}", required = true, readonly = true)
-    private Set<Artifact>             artifacts;
+    private Set<Artifact>               artifacts;
+
+    private Map<MavenProject, Artifact> projectReferenceArtifacts = new HashMap<MavenProject, Artifact>();
 
     public void execute() throws MojoExecutionException {
         if (skip) {
@@ -159,6 +161,7 @@ public class WarSyncMojo extends AbstractMojo {
     @SuppressWarnings("unchecked")
     private void prepareArtifacts() {
         try {
+            // TODO: do only if artifacts are not resolved
             Set<Artifact> artifacts = new LinkedHashSet<Artifact>();
             Map<String, Artifact> managedVersions = createManagedVersionMap();
             List<ResolutionListener> listeners = new ArrayList<ResolutionListener>();
@@ -168,12 +171,21 @@ public class WarSyncMojo extends AbstractMojo {
                 if (!isReactorProject(node.getArtifact())) {
                     artifactResolver.resolve(node.getArtifact(), node.getRemoteRepositories(), session.getLocalRepository());
                     artifacts.add(node.getArtifact());
+                } else {
+                    addProjectReferenceArtifact(node.getArtifact());
                 }
             }
             this.artifacts = artifacts;
         } catch (Exception e) {
             getLog().debug("[WarSync] " + e.getMessage(), e);
             getLog().error("[WarSync] " + e.getMessage());
+        }
+    }
+
+    private void addProjectReferenceArtifact(Artifact artifact) {
+        MavenProject prj = projectReferences.get(getProjectReferenceId(artifact));
+        if (prj != null) {
+            projectReferenceArtifacts.put(prj, artifact);
         }
     }
 
@@ -220,7 +232,10 @@ public class WarSyncMojo extends AbstractMojo {
     private void createFileSyncConfigs() throws Exception {
         createFileSyncConfig(project);
         for (MavenProject prj : projectReferences.values()) {
-            createFileSyncConfig(prj);
+            Artifact artifact = projectReferenceArtifacts.get(prj);
+            if (artifact == null || SCOPES.contains(artifact.getScope())) {
+                createFileSyncConfig(prj);
+            }
         }
     }
 
